@@ -85,7 +85,8 @@ const Home = () => {
 				const searchResult = allPosts.filter(
 					(item) =>
 						item.first_name.toLowerCase().includes(searchText.toLowerCase()) ||
-						item.last_name.toLowerCase().includes(searchText.toLowerCase())
+						item.last_name.toLowerCase().includes(searchText.toLowerCase()) ||
+						item.domain.toLowerCase().includes(searchText.toLowerCase())
 				);
 				setSearchedResults(searchResult);
 			}, 500)
@@ -159,34 +160,39 @@ const Home = () => {
 				</p>
 			</div>
 
-			<div className='mt-16 w-[40%]'>
-				<FormField
-					labelName='Search posts'
-					type='text'
-					name='text'
-					placeholder='Search something...'
-					value={searchText}
-					handleChange={handleSearchChange}
-				/>
+			<div className='flex space-x-4 mb-4'>
+				<div className='flex-1'>
+					<FormField
+						labelName='Search posts'
+						type='text'
+						name='text'
+						placeholder='Search something...'
+						value={searchText}
+						handleChange={handleSearchChange}
+					/>
+				</div>
+				<div className='flex-1'>
+					<FilterButton
+						label='Gender'
+						options={["Male", "Female", "Other"]}
+						selectedOptions={selectedFilters.gender}
+						handleFilterChange={(value) => handleFilterChange("gender", value)}
+					/>
+				</div>
 			</div>
+
 			<div className='flex space-x-4 mb-4'>
 				{/* Gender Filter */}
-				<FilterButton
-					label='Gender'
-					options={["Male", "Female", "Other"]} // Replace with your gender options
-					selectedOptions={selectedFilters.gender}
-					handleFilterChange={(value) => handleFilterChange("gender", value)}
-				/>
 
 				{/* Availability Filter */}
-				<FilterButton
+				{/* <FilterButton
 					label='Availability'
 					options={[true]} // Replace with your availability options
 					selectedOptions={selectedFilters.availability}
 					handleFilterChange={(value) =>
 						handleFilterChange("availability", value)
 					}
-				/>
+				/> */}
 			</div>
 
 			<div className='mt-10'>

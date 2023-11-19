@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
 
 import User from "../mongodb/models/user.js";
+import Team from "../mongodb/models/Team.js";
 
 dotenv.config();
 
@@ -32,6 +33,17 @@ router.route("/:currentPage").get(async (req, res) => {
 router.route("/users").get(async (req, res) => {
 	try {
 		const posts = await User.find({});
+		res.status(200).json({ success: true, data: posts });
+	} catch (err) {
+		res.status(500).json({
+			success: false,
+			message: "Fetching posts failed, please try again",
+		});
+	}
+});
+router.route("/teams-details").get(async (req, res) => {
+	try {
+		const posts = await Team.find({});
 		res.status(200).json({ success: true, data: posts });
 	} catch (err) {
 		res.status(500).json({
@@ -98,8 +110,6 @@ router.route("/edit-user/:id").patch(async (req, res) => {
 		console.log(last_name);
 		const posts = await User.findById(id);
 		const photoUrl = await cloudinary.uploader.upload(avatar);
-		console.log("post ", first_name);
-
 		posts.first_name = first_name;
 		posts.last_name = last_name;
 		posts.email = email;

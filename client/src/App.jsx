@@ -8,6 +8,7 @@ import {
 	ShowPage,
 	TeamCreatePage,
 	Teams,
+	TeamShowPage,
 } from "./pages";
 
 const App = () => {
@@ -67,6 +68,10 @@ const App = () => {
 					<Route
 						path='/teams'
 						element={<Teams />}
+					/>
+					<Route
+						path='/team-details/:id'
+						element={<TeamShowPage />}
 					/>
 				</Routes>
 			</main>

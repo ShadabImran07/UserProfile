@@ -49,15 +49,7 @@ const Card = ({
 				<p className='text-white text-xs mb-1'>{gender}</p>
 				<p className='text-white text-xs mb-2'>{domain}</p>
 
-				<div className='mt-3 flex justify-end items-center gap-2'>
-					{/* <button
-						type='button'
-						onClick={() => handleEdit(_id)}
-						className='bg-blue-500 text-white px-2 py-1 rounded-md text-xs'
-					>
-						Edit
-					</button> */}
-
+				<div className='absolute inset-1 flex items-end justify-end p-4 opacity-0 group-hover:opacity-100'>
 					<Link
 						to={`/show/${_id}`}
 						className='bg-blue-500 text-white px-2 py-1 rounded-md text-xs'
