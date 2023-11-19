@@ -52,7 +52,7 @@ const EditUser = () => {
 			setLoading(true);
 			try {
 				const response = await fetch(
-					`http://localhost:8080/api/user/edit-user/${id}`,
+					`https://userprofile-backend.onrender.com/api/user/edit-user/${id}`,
 					{
 						method: "PATCH",
 						headers: {

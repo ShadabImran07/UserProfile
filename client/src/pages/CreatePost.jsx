@@ -51,13 +51,16 @@ const CreatePost = () => {
 		if (form.first_name && form.avatar) {
 			setLoading(true);
 			try {
-				const response = await fetch("http://localhost:8080/api/user", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ ...form }),
-				});
+				const response = await fetch(
+					"https://userprofile-backend.onrender.com/api/user",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ ...form }),
+					}
+				);
 
 				await response.json();
 				alert("Success");

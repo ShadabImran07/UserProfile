@@ -30,7 +30,7 @@ const Teams = () => {
 		const fetchTeams = async () => {
 			try {
 				const response = await fetch(
-					"http://localhost:8080/api/team/teams-details"
+					"https://userprofile-backend.onrender.com/api/team/teams-details"
 				);
 				if (response.ok) {
 					const data = await response.json();
