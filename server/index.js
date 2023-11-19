@@ -17,7 +17,7 @@ app.use("/api/team", teamRoutes);
 
 app.get("/", async (req, res) => {
 	res.status(200).json({
-		message: "Hello from DALL.E!",
+		message: "Hello from User!",
 	});
 });
 
