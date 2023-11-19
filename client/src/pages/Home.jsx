@@ -50,7 +50,7 @@ const Home = () => {
 
 		try {
 			const response = await fetch(
-				`http://localhost:8080/api/user/${currentPage}`,
+				`https://userprofile-backend.onrender.com/api/user/${currentPage}`,
 				{
 					method: "GET",
 					headers: {
