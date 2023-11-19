@@ -56,7 +56,7 @@ const TeamCreatePage = () => {
 
 	const createTeam = () => {
 		// Send selected users and team name to backend
-		fetch("http://localhost:8080/api/team/create-team", {
+		fetch("https://userprofile-backend.onrender.com/api/team/create-team", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
