@@ -46,7 +46,7 @@ router.route("/").post(async (req, res) => {
 		const { first_name, last_name, email, gender, domain, available, avatar } =
 			req.body;
 		const photoUrl = await cloudinary.uploader.upload(avatar);
-		const newUser = await User.create({
+		const newUser = await User.insertMany({
 			first_name,
 			last_name,
 			email,
@@ -90,21 +90,23 @@ router.route("/:id").delete(async (req, res) => {
 		});
 	}
 });
-router.route("/:id").patch(async (req, res) => {
+router.route("/edit-user/:id").patch(async (req, res) => {
 	try {
 		const { id } = req.params;
 		const { first_name, last_name, email, gender, domain, available, avatar } =
 			req.body;
+		console.log(last_name);
 		const posts = await User.findById(id);
-		console.log(posts);
 		const photoUrl = await cloudinary.uploader.upload(avatar);
+		console.log("post ", first_name);
+
 		posts.first_name = first_name;
 		posts.last_name = last_name;
 		posts.email = email;
 		posts.gender = gender;
+		posts.avatar = photoUrl.url;
 		posts.domain = domain;
 		posts.available = available;
-		posts.avatar = photoUrl.url;
 
 		await posts.save();
 		console.log("after", posts);
@@ -113,7 +115,7 @@ router.route("/:id").patch(async (req, res) => {
 	} catch (err) {
 		res.status(500).json({
 			success: false,
-			message: "user deleteing failed, please try again",
+			message: "user editing failed, please try again",
 		});
 	}
 });

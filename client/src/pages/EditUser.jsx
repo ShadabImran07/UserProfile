@@ -48,11 +48,11 @@ const EditUser = () => {
 		e.preventDefault();
 		console.log(form);
 
-		if (form.first_name && form.avatar) {
+		if (form.first_name) {
 			setLoading(true);
 			try {
 				const response = await fetch(
-					`http://localhost:8080/api/user/edit/${id}`,
+					`http://localhost:8080/api/user/edit-user/${id}`,
 					{
 						method: "PATCH",
 						headers: {
@@ -63,8 +63,10 @@ const EditUser = () => {
 				);
 
 				await response.json();
-				alert("Success");
-				navigate(`/show/${id}`);
+				if (response.ok) {
+					alert("Success");
+					navigate(`/show/${id}`);
+				}
 			} catch (err) {
 				alert(err);
 			} finally {
@@ -77,12 +79,15 @@ const EditUser = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch(`http://localhost:8080/api/user/${id}`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
+				const response = await fetch(
+					`http://localhost:8080/api/user/show/${id}`,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				);
 
 				if (response.ok) {
 					const result = await response.json();

@@ -62,7 +62,7 @@ const Home = () => {
 			if (response.ok) {
 				const result = await response.json();
 				const totalPosts = result.data.length;
-				setTotalPages(Math.ceil(totalPosts / 10));
+				setTotalPages(Math.ceil(70 / totalPosts));
 				setAllPosts(result.data.reverse());
 			}
 		} catch (err) {
