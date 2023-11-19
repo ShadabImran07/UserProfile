@@ -1,4 +1,8 @@
 import CreatePost from "./CreatePost";
 import Home from "./Home";
+import EditUser from "./EditUser";
+import ShowPage from "./ShowPage";
+import TeamCreatePage from "./TeamCreatePage";
+import Teams from "./Teams";
 
-export { CreatePost, Home };
+export { CreatePost, Home, EditUser, ShowPage, TeamCreatePage, Teams };

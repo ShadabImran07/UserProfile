@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { FormField, Loader } from "../components";
 
-const CreatePost = () => {
+const EditUser = () => {
+	const { id } = useParams();
 	const navigate = useNavigate();
-
+	const [user, setUser] = useState(null);
 	const [form, setForm] = useState({
 		first_name: "",
 		last_name: "",
@@ -51,17 +51,20 @@ const CreatePost = () => {
 		if (form.first_name && form.avatar) {
 			setLoading(true);
 			try {
-				const response = await fetch("http://localhost:8080/api/user", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ ...form }),
-				});
+				const response = await fetch(
+					`http://localhost:8080/api/user/edit/${id}`,
+					{
+						method: "PATCH",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ ...form }),
+					}
+				);
 
 				await response.json();
 				alert("Success");
-				navigate("/");
+				navigate(`/show/${id}`);
 			} catch (err) {
 				alert(err);
 			} finally {
@@ -71,13 +74,44 @@ const CreatePost = () => {
 			alert("Please generate an image with proper details");
 		}
 	};
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(`http://localhost:8080/api/user/${id}`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				});
+
+				if (response.ok) {
+					const result = await response.json();
+					setUser(result.data);
+					// Update the form state with user details
+					setForm({
+						first_name: result.data.first_name || "",
+						last_name: result.data.last_name || "",
+						email: result.data.email || "",
+						gender: result.data.gender || "",
+						avatar: result.data.avatar || "",
+						domain: result.data.domain || "",
+						available: result.data.available || false,
+					});
+				}
+			} catch (error) {
+				alert(error.message);
+			}
+		};
+
+		fetchData();
+	}, [id]);
 
 	return (
 		<section className='max-w-7xl mx-auto'>
 			<div>
-				<h1 className='font-extrabold text-[#222328] text-[32px]'>Create</h1>
+				<h1 className='font-extrabold text-[#222328] text-[32px]'>Edit</h1>
 				<p className='mt-2 text-[#666e75] text-[14px] max-w-[500px]'>
-					Upload Your profile here...
+					Edit you User Here...
 				</p>
 			</div>
 
@@ -151,7 +185,6 @@ const CreatePost = () => {
 							// value={post.photo}
 							onChange={handleImageChange}
 							placeholder='Upload your image here'
-							required
 							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-full p-3'
 						/>
 					</label>
@@ -166,12 +199,18 @@ const CreatePost = () => {
 					</label>
 				</div>
 
-				<div className='mt-10'>
+				<div className='mt-10 flex justify-between'>
+					<Link
+						to='/'
+						className='text-white bg-red-700 font-medium rounded-md text-sm px-5 py-2.5'
+					>
+						Cancel
+					</Link>
 					<button
 						type='submit'
-						className='mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+						className='text-white bg-[#6469ff] font-medium rounded-md text-sm px-5 py-2.5'
 					>
-						{loading ? "uploading..." : "upload"}
+						{loading ? "updating..." : "Update"}
 					</button>
 				</div>
 			</form>
@@ -179,4 +218,4 @@ const CreatePost = () => {
 	);
 };
 
-export default CreatePost;
+export default EditUser;

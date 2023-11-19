@@ -1,39 +1,73 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import { download } from "../assets";
-import { downloadImage } from "../utils";
+const Card = ({
+	_id,
+	first_name,
+	last_name,
+	email,
+	gender,
+	avatar,
+	domain,
+	available,
+}) => {
+	return (
+		<div className='rounded-xl relative shadow-card card'>
+			<div className='w-full h-48 rounded-t-xl overflow-hidden relative'>
+				{/* <img
+					className='w-full h-full object-cover'
+					src={avatar}
+					alt={`${first_name} ${last_name}`}
+				/> */}
+			</div>
+			<div className='flex flex-col max-h-[94.5%]  absolute bottom-0 left-0 right-0 bg-[#10131f] m-2 p-4 rounded-md'>
+				<div className='absolute top-1 right-1'>
+					<div
+						className={`w-8 h-8 rounded-full overflow-hidden border-2 border-gray-300`}
+					>
+						<img
+							className='w-full h-full object-cover'
+							src={avatar}
+							alt={`${first_name} ${last_name}`}
+						/>
+					</div>
+				</div>
+				<p className='text-white text-sm overflow-y-auto'>{`${first_name} ${last_name}`}</p>
+				<p className='text-white text-xs mb-1'>{email}</p>
 
-const Card = ({ _id, name, prompt, photo }) => (
-  <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
-    <img
-      className="w-full h-auto object-cover rounded-xl"
-      src={photo}
-      alt={prompt}
-    />
-    <div className="group-hover:flex flex-col max-h-[94.5%] hidden absolute bottom-0 left-0 right-0 bg-[#10131f] m-2 p-4 rounded-md">
-      <p className="text-white text-sm overflow-y-auto prompt">{prompt}</p>
+				<div className='flex items-center gap-2 mb-1'>
+					<div
+						className={`w-3 h-3 rounded-full ${
+							available ? "bg-green-500" : "bg-red-500"
+						}`}
+					></div>
+					<p className='text-white text-xs'>
+						{available ? "Available" : "Not Available"}
+					</p>
+				</div>
 
-      <div className="mt-5 flex justify-between items-center gap-2">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full object-cover bg-green-700 flex justify-center items-center text-white text-xs font-bold">
-            {name[0]}
-          </div>
-          <p className="text-white text-sm">{name}</p>
-        </div>
-        <button
-          type="button"
-          onClick={() => downloadImage(_id, photo)}
-          className="outline-none bg-transparent border-none"
-        >
-          <img
-            src={download}
-            alt="download"
-            className="w-6 h-6 object-contain invert"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
-);
+				<p className='text-white text-xs mb-1'>{gender}</p>
+				<p className='text-white text-xs mb-2'>{domain}</p>
+
+				<div className='mt-3 flex justify-end items-center gap-2'>
+					{/* <button
+						type='button'
+						onClick={() => handleEdit(_id)}
+						className='bg-blue-500 text-white px-2 py-1 rounded-md text-xs'
+					>
+						Edit
+					</button> */}
+
+					<Link
+						to={`/show/${_id}`}
+						className='bg-blue-500 text-white px-2 py-1 rounded-md text-xs'
+					>
+						Show Details
+					</Link>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 export default Card;
