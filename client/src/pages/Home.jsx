@@ -101,6 +101,7 @@ const Home = () => {
 		}));
 	};
 	const applyFilters = (data) => {
+		console.log(data);
 		let filteredData = data;
 
 		if (selectedFilters.gender.length > 0) {
@@ -110,9 +111,10 @@ const Home = () => {
 		}
 
 		if (selectedFilters.availability.length > 0) {
-			filteredData = filteredData.filter((item) =>
-				selectedFilters.availability.includes(item.availability)
+			filteredData = filteredData.filter(
+				(item) => selectedFilters.availability == `${item.available}`
 			);
+			console.log("fom sadab", filteredData);
 		}
 
 		return filteredData;
@@ -171,12 +173,20 @@ const Home = () => {
 						handleChange={handleSearchChange}
 					/>
 				</div>
-				<div className='flex-1'>
+				<div className='flex-1 flex items-center space-x-4'>
 					<FilterButton
 						label='Gender'
 						options={["Male", "Female", "Other"]}
 						selectedOptions={selectedFilters.gender}
 						handleFilterChange={(value) => handleFilterChange("gender", value)}
+					/>
+					<FilterButton
+						label='Availability'
+						options={["true", "false"]} // Assuming availability options are true or false
+						selectedOptions={selectedFilters.availability}
+						handleFilterChange={(value) =>
+							handleFilterChange("availability", value)
+						}
 					/>
 				</div>
 			</div>
@@ -185,14 +195,6 @@ const Home = () => {
 				{/* Gender Filter */}
 
 				{/* Availability Filter */}
-				{/* <FilterButton
-					label='Availability'
-					options={[true]} // Replace with your availability options
-					selectedOptions={selectedFilters.availability}
-					handleFilterChange={(value) =>
-						handleFilterChange("availability", value)
-					}
-				/> */}
 			</div>
 
 			<div className='mt-10'>
