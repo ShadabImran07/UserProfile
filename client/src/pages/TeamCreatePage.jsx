@@ -15,12 +15,15 @@ const TeamCreatePage = () => {
 	const fetchPosts = async () => {
 		setLoading(true);
 		try {
-			const response = await fetch("http://localhost:8080/api/user/users", {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
+			const response = await fetch(
+				"https://userprofile-backend.onrender.com/api/user/users",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
 			if (response.ok) {
 				const result = await response.json();
 				setUsers(result.data.reverse());
