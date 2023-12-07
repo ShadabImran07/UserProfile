@@ -20,7 +20,7 @@ const Card = ({
 					alt={`${first_name} ${last_name}`}
 				/> */}
 			</div>
-			<div className='flex flex-col max-h-[94.5%]  absolute bottom-0 left-0 right-0 bg-[#10131f] m-2 p-4 rounded-md'>
+			<div className='flex flex-col max-h-[94.5%]  absolute bottom-0 left-0 right-0 bg-[#fafafb] m-2 p-4 rounded-m'>
 				<div className='absolute top-1 right-1'>
 					<div
 						className={`w-8 h-8 rounded-full overflow-hidden border-2 border-gray-300`}
@@ -32,8 +32,8 @@ const Card = ({
 						/>
 					</div>
 				</div>
-				<p className='text-white text-sm overflow-y-auto'>{`${first_name} ${last_name}`}</p>
-				<p className='text-white text-xs mb-1'>{email}</p>
+				<p className='text-black text-sm overflow-y-auto'>{`${first_name} ${last_name}`}</p>
+				<p className='text-black text-xs mb-1'>{email}</p>
 
 				<div className='flex items-center gap-2 mb-1'>
 					<div
@@ -41,18 +41,18 @@ const Card = ({
 							available ? "bg-green-500" : "bg-red-500"
 						}`}
 					></div>
-					<p className='text-white text-xs'>
+					<p className='text-black text-xs'>
 						{available ? "Available" : "Not Available"}
 					</p>
 				</div>
 
-				<p className='text-white text-xs mb-1'>{gender}</p>
-				<p className='text-white text-xs mb-2'>{domain}</p>
+				<p className='text-black text-xs mb-1'>{gender}</p>
+				<p className='text-black text-xs mb-2'>{domain}</p>
 
 				<div className='absolute inset-1 flex items-end justify-end p-4 opacity-0 group-hover:opacity-100'>
 					<Link
 						to={`/show/${_id}`}
-						className='bg-blue-500 text-white px-2 py-1 rounded-md text-xs'
+						className='bg-green-600 text-black px-2 py-1 rounded-md text-xs'
 					>
 						Show Details
 					</Link>

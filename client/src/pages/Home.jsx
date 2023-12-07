@@ -15,7 +15,7 @@ const RenderCards = ({ data, title }) => {
 		));
 	}
 	return (
-		<h2 className='mt-5 font-bold text-[#6469ff] text-xl uppercase'>{title}</h2>
+		<h2 className='mt-5 font-bold text-[#006600] text-xl uppercase'>{title}</h2>
 	);
 };
 
@@ -138,13 +138,13 @@ const Home = () => {
 					title='Filtered Posts'
 				/>
 			) : (
-				<h2 className='mt-5 font-bold text-[#6469ff] text-xl uppercase'>
+				<h2 className='mt-5 font-bold text-[#006600] text-xl uppercase'>
 					No Filtered Posts Found
 				</h2>
 			);
 		} else {
 			return (
-				<h2 className='mt-5 font-bold text-[#6469ff] text-xl uppercase'>
+				<h2 className='mt-5 font-bold text-[#006600] text-xl uppercase'>
 					Loading...
 				</h2>
 			);
@@ -162,8 +162,8 @@ const Home = () => {
 				</p>
 			</div>
 
-			<div className='flex space-x-4 mb-4'>
-				<div className='flex-1'>
+			<div className='flex justify-between space-x-4 mb-4'>
+				<div className='flex'>
 					<FormField
 						labelName='Search posts'
 						type='text'
@@ -173,13 +173,16 @@ const Home = () => {
 						handleChange={handleSearchChange}
 					/>
 				</div>
-				<div className='flex-1 flex items-center space-x-4'>
+				<div className='flex space-x-4'>
+					<div>
 					<FilterButton
 						label='Gender'
 						options={["Male", "Female", "Other"]}
 						selectedOptions={selectedFilters.gender}
 						handleFilterChange={(value) => handleFilterChange("gender", value)}
 					/>
+					</div>
+					<div>
 					<FilterButton
 						label='Availability'
 						options={["true", "false"]} // Assuming availability options are true or false
@@ -188,6 +191,7 @@ const Home = () => {
 							handleFilterChange("availability", value)
 						}
 					/>
+					</div>
 				</div>
 			</div>
 
@@ -228,7 +232,7 @@ const Home = () => {
 				<button
 					onClick={handlePreviousPage}
 					disabled={currentPage === 1}
-					className={`px-4 py-2 mr-2 bg-blue-500 text-white rounded ${
+					className={`px-4 py-2 mr-2 bg-green-600 text-white rounded ${
 						currentPage === 1
 							? "opacity-50 cursor-not-allowed"
 							: "cursor-pointer"
@@ -242,7 +246,7 @@ const Home = () => {
 				<button
 					onClick={handleNextPage}
 					disabled={allPosts?.length === 0 || currentPage === totalPages}
-					className={`px-4 py-2 ml-2 bg-blue-500 text-white rounded ${
+					className={`px-4 py-2 ml-2 bg-green-600 text-white rounded ${
 						allPosts?.length === 0 || currentPage === totalPages
 							? "opacity-50 cursor-not-allowed"
 							: "cursor-pointer"
