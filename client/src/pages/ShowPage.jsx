@@ -83,7 +83,7 @@ const ShowPage = () => {
 					<div className='absolute bottom-0 right-0 p-4'>
 						<Link
 							to={`/edit/${id}`}
-							className='bg-blue-500 px-4 py-2 rounded-md text-white font-bold'
+							className='bg-green-500 px-4 py-2 rounded-md text-white font-bold'
 						>
 							Edit
 						</Link>
