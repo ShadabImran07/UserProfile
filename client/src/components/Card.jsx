@@ -20,7 +20,11 @@ const Card = ({
 					alt={`${first_name} ${last_name}`}
 				/> */}
 			</div>
+<<<<<<< HEAD
 			<div className='flex flex-col max-h-full absolute bottom-0 left-0 right-0 bg-[#10131f] m-2 p-4 rounded-md'>
+=======
+			<div className='flex flex-col max-h-[94.5%]  absolute bottom-0 left-0 right-0 bg-[#10131f] m-2 p-4 rounded-md'>
+>>>>>>> parent of b8754a7 (done backend filtering)
 				<div className='absolute top-1 right-1'>
 					<div
 						className={`w-8 h-8 rounded-full overflow-hidden border-2 border-gray-300`}
