@@ -129,5 +129,39 @@ router.route("/edit-user/:id").patch(async (req, res) => {
 		});
 	}
 });
+router.post("/search", async (req, res) => {
+	try {
+		const { searchText, selectedFilters } = req.body;
+		console.log(req.body);
+
+		const filter = {};
+		if (searchText) {
+			filter.$or = [
+				{ first_name: { $regex: new RegExp(searchText, "i") } },
+				{ last_name: { $regex: new RegExp(searchText, "i") } },
+				{ domain: { $regex: new RegExp(searchText, "i") } },
+			];
+		}
+
+		if (selectedFilters.gender && selectedFilters.gender.length > 0) {
+			filter.gender = { $in: selectedFilters.gender };
+		}
+
+		if (
+			selectedFilters.availability &&
+			selectedFilters.availability.length > 0
+		) {
+			filter.available = {
+				$in: selectedFilters.availability.map((val) => val === "true"),
+			};
+		}
+
+		const searchResults = await User.find(filter);
+
+		res.status(200).json({ results: searchResults });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
 
 export default router;

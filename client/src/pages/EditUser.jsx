@@ -80,7 +80,7 @@ const EditUser = () => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					`http://localhost:8080/api/user/show/${id}`,
+					`https://userprofile-backend.onrender.com/api/user/show/${id}`,
 					{
 						method: "GET",
 						headers: {
@@ -162,7 +162,7 @@ const EditUser = () => {
 							id='gender'
 							name='gender'
 							value={form.gender}
-							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-full p-3'
+							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#006600] focus:border-[#006600] outline-none block w-full p-3'
 							onChange={handleChangeGender}
 						>
 							<option value='male'>Male</option>
@@ -190,7 +190,7 @@ const EditUser = () => {
 							// value={post.photo}
 							onChange={handleImageChange}
 							placeholder='Upload your image here'
-							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-full p-3'
+							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#006600] focus:border-[#006600] outline-none block w-full p-3'
 						/>
 					</label>
 					<label className='block mb-5 text-sm font-medium text-gray-900 mt-2 px-2'>
@@ -213,7 +213,7 @@ const EditUser = () => {
 					</Link>
 					<button
 						type='submit'
-						className='text-white bg-[#6469ff] font-medium rounded-md text-sm px-5 py-2.5'
+						className='text-white bg-[#006600] font-medium rounded-md text-sm px-5 py-2.5'
 					>
 						{loading ? "updating..." : "Update"}
 					</button>
