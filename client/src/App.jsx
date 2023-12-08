@@ -23,19 +23,19 @@ const App = () => {
 				<div className='flex gap-5'>
 					<Link
 						to='/create-post'
-						className='font-inter font-medium bg-[#006600] text-white px-4 py-2 rounded-md'
+						className='font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md'
 					>
 						Create User
 					</Link>
 					<Link
 						to='/create-team'
-						className='font-inter font-medium bg-[#006600] text-white px-4 py-2 rounded-md'
+						className='font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md'
 					>
 						Create Team
 					</Link>
 					<Link
 						to='/teams'
-						className='font-inter font-medium bg-[#006600] text-white px-4 py-2 rounded-md h-[20%]'
+						className='font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md h-[20%]'
 					>
 						Show Teams
 					</Link>

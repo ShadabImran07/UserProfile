@@ -126,7 +126,7 @@ const CreatePost = () => {
 							id='gender'
 							name='gender'
 							value={form.gender}
-							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#006600] focus:border-[#006600] outline-none block w-full p-3'
+							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-full p-3'
 							onChange={handleChangeGender}
 						>
 							<option value='male'>Male</option>
@@ -155,7 +155,7 @@ const CreatePost = () => {
 							onChange={handleImageChange}
 							placeholder='Upload your image here'
 							required
-							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#006600] focus:border-[#006600] outline-none block w-full p-3'
+							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-full p-3'
 						/>
 					</label>
 					<label className='block mb-5 text-sm font-medium text-gray-900 mt-2 px-2'>
@@ -172,7 +172,7 @@ const CreatePost = () => {
 				<div className='mt-10'>
 					<button
 						type='submit'
-						className='mt-3 text-white bg-[#006600] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+						className='mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
 					>
 						{loading ? "uploading..." : "upload"}
 					</button>

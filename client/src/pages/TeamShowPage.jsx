@@ -46,7 +46,7 @@ const TeamShowPage = () => {
 					<div className='mb-4 p-10'>
 						<Link
 							to='/'
-							className='bg-green-500 text-white px-4 py-2 rounded-md'
+							className='bg-sky-500 text-white px-4 py-2 rounded-md'
 						>
 							Go Home
 						</Link>
