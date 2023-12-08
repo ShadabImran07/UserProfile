@@ -15,7 +15,7 @@ const RenderCards = ({ data, title }) => {
 		));
 	}
 	return (
-		<h2 className='mt-5 font-bold text-[#6469ff] text-xl uppercase'>{title}</h2>
+		<h2 className='mt-5 font-bold text-[#006600] text-xl uppercase'>{title}</h2>
 	);
 };
 
@@ -32,6 +32,7 @@ const Home = () => {
 		gender: [],
 		availability: [],
 	});
+	const [filteredData, setFilterdData] = useState(null);
 
 	const handlePreviousPage = () => {
 		if (currentPage > 1) {
@@ -71,26 +72,38 @@ const Home = () => {
 			setLoading(false);
 		}
 	};
+	const applyFilters = async (searchTextValue, filters) => {
+		const searchData = {
+			searchText: searchTextValue,
+			selectedFilters: filters,
+		};
+		try {
+			const response = await fetch(
+				"https://userprofile-backend.onrender.com/api/user/search",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(searchData),
+				}
+			);
+			if (response.ok) {
+				const results = await response.json();
+				setFilterdData(results.results);
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	useEffect(() => {
 		fetchPosts();
 	}, [currentPage]);
 
 	const handleSearchChange = (e) => {
-		clearTimeout(searchTimeout);
 		setSearchText(e.target.value);
-
-		setSearchTimeout(
-			setTimeout(() => {
-				const searchResult = allPosts.filter(
-					(item) =>
-						item.first_name.toLowerCase().includes(searchText.toLowerCase()) ||
-						item.last_name.toLowerCase().includes(searchText.toLowerCase()) ||
-						item.domain.toLowerCase().includes(searchText.toLowerCase())
-				);
-				setSearchedResults(searchResult);
-			}, 500)
-		);
+		applyFilters(e.target.value, selectedFilters);
 	};
 	const handleFilterChange = (filterType, value) => {
 		setSelectedFilters((prevFilters) => ({
@@ -99,58 +112,35 @@ const Home = () => {
 				? prevFilters[filterType].filter((filter) => filter !== value)
 				: [...prevFilters[filterType], value],
 		}));
+		applyFilters(searchText, {
+			...selectedFilters,
+			[filterType]: selectedFilters[filterType].includes(value)
+				? selectedFilters[filterType].filter((filter) => filter !== value)
+				: [...selectedFilters[filterType], value],
+		});
 	};
-	const applyFilters = (data) => {
-		console.log(data);
-		let filteredData = data;
-
-		if (selectedFilters.gender.length > 0) {
-			filteredData = filteredData.filter((item) =>
-				selectedFilters.gender.includes(item.gender)
-			);
-		}
-
-		if (selectedFilters.availability.length > 0) {
-			filteredData = filteredData.filter(
-				(item) => selectedFilters.availability == `${item.available}`
-			);
-			console.log("fom sadab", filteredData);
-		}
-
-		return filteredData;
-	};
-
+	console.log(filteredData);
 	const renderFilteredCards = () => {
-		let filteredData = allPosts || []; // Ensure allPosts is not null
-
-		// Apply filters only if allPosts is an array
-		if (Array.isArray(filteredData)) {
-			if (
-				selectedFilters.gender.length > 0 ||
-				selectedFilters.availability.length > 0
-			) {
-				filteredData = applyFilters(filteredData);
-			}
-
+		if (filteredData) {
 			return filteredData.length > 0 ? (
 				<RenderCards
 					data={filteredData}
 					title='Filtered Posts'
 				/>
 			) : (
-				<h2 className='mt-5 font-bold text-[#6469ff] text-xl uppercase'>
+				<h2 className='mt-5 font-bold text-[#006600] text-xl uppercase'>
 					No Filtered Posts Found
 				</h2>
 			);
 		} else {
 			return (
-				<h2 className='mt-5 font-bold text-[#6469ff] text-xl uppercase'>
+				<h2 className='mt-5 font-bold text-[#006600] text-xl uppercase'>
 					Loading...
 				</h2>
 			);
 		}
 	};
-	console.log(selectedFilters);
+
 	return (
 		<section className='max-w-7xl mx-auto'>
 			<div>
@@ -162,8 +152,8 @@ const Home = () => {
 				</p>
 			</div>
 
-			<div className='flex space-x-4 mb-4'>
-				<div className='flex-1'>
+			<div className='flex justify-between space-x-4 mb-4'>
+				<div className='flex'>
 					<FormField
 						labelName='Search posts'
 						type='text'
@@ -173,21 +163,27 @@ const Home = () => {
 						handleChange={handleSearchChange}
 					/>
 				</div>
-				<div className='flex-1 flex items-center space-x-4'>
-					<FilterButton
-						label='Gender'
-						options={["Male", "Female", "Other"]}
-						selectedOptions={selectedFilters.gender}
-						handleFilterChange={(value) => handleFilterChange("gender", value)}
-					/>
-					<FilterButton
-						label='Availability'
-						options={["true", "false"]} // Assuming availability options are true or false
-						selectedOptions={selectedFilters.availability}
-						handleFilterChange={(value) =>
-							handleFilterChange("availability", value)
-						}
-					/>
+				<div className='flex space-x-4'>
+					<div>
+						<FilterButton
+							label='Gender'
+							options={["Male", "Female", "Other"]}
+							selectedOptions={selectedFilters.gender}
+							handleFilterChange={(value) =>
+								handleFilterChange("gender", value)
+							}
+						/>
+					</div>
+					<div>
+						<FilterButton
+							label='Availability'
+							options={["true", "false"]} // Assuming availability options are true or false
+							selectedOptions={selectedFilters.availability}
+							handleFilterChange={(value) =>
+								handleFilterChange("availability", value)
+							}
+						/>
+					</div>
 				</div>
 			</div>
 
@@ -212,13 +208,15 @@ const Home = () => {
 						)}
 						<div className='grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3'>
 							{/* Render filtered cards */}
-							{searchText ? (
-								<RenderCards
-									data={searchedResults}
-									title='No Search Results Found'
-								/>
-							) : (
+							{filteredData && filteredData.length > 0 ? (
 								renderFilteredCards()
+							) : (
+								// <p>hello</p>
+								<RenderCards
+									data={allPosts}
+									title='ALl Profile'
+								/>
+								// <p>hello</p>
 							)}
 						</div>
 					</>
@@ -228,7 +226,7 @@ const Home = () => {
 				<button
 					onClick={handlePreviousPage}
 					disabled={currentPage === 1}
-					className={`px-4 py-2 mr-2 bg-blue-500 text-white rounded ${
+					className={`px-4 py-2 mr-2 bg-green-600 text-white rounded ${
 						currentPage === 1
 							? "opacity-50 cursor-not-allowed"
 							: "cursor-pointer"
@@ -242,7 +240,7 @@ const Home = () => {
 				<button
 					onClick={handleNextPage}
 					disabled={allPosts?.length === 0 || currentPage === totalPages}
-					className={`px-4 py-2 ml-2 bg-blue-500 text-white rounded ${
+					className={`px-4 py-2 ml-2 bg-green-600 text-white rounded ${
 						allPosts?.length === 0 || currentPage === totalPages
 							? "opacity-50 cursor-not-allowed"
 							: "cursor-pointer"

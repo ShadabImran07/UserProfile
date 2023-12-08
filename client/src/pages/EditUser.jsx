@@ -80,7 +80,7 @@ const EditUser = () => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					`http://localhost:8080/api/user/show/${id}`,
+					`https://userprofile-backend.onrender.com/api/user/show/${id}`,
 					{
 						method: "GET",
 						headers: {
