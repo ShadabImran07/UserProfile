@@ -321,30 +321,6 @@ const Home = () => {
 			setLoading(false);
 		}
 	};
-	const applyFilters = async (searchTextValue, filters) => {
-		const searchData = {
-			searchText: searchTextValue,
-			selectedFilters: filters,
-		};
-		try {
-			const response = await fetch(
-				"https://userprofile-backend.onrender.com/api/user/search",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(searchData),
-				}
-			);
-			if (response.ok) {
-				const results = await response.json();
-				setFilterdData(results.results);
-			}
-		} catch (err) {
-			console.error(err);
-		}
-	};
 
 	useEffect(() => {
 		fetchPosts();
