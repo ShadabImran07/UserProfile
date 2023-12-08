@@ -13,7 +13,7 @@ const TeamCard = ({ team }) => {
 			<div className='px-6 py-4'>
 				<Link
 					to={`/team-details/${team.teamId}`} // Replace with your route
-					className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+					className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
 				>
 					View Details
 				</Link>

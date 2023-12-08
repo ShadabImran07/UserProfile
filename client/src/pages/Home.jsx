@@ -163,27 +163,21 @@ const Home = () => {
 						handleChange={handleSearchChange}
 					/>
 				</div>
-				<div className='flex space-x-4'>
-					<div>
-						<FilterButton
-							label='Gender'
-							options={["Male", "Female", "Other"]}
-							selectedOptions={selectedFilters.gender}
-							handleFilterChange={(value) =>
-								handleFilterChange("gender", value)
-							}
-						/>
-					</div>
-					<div>
-						<FilterButton
-							label='Availability'
-							options={["true", "false"]} // Assuming availability options are true or false
-							selectedOptions={selectedFilters.availability}
-							handleFilterChange={(value) =>
-								handleFilterChange("availability", value)
-							}
-						/>
-					</div>
+				<div className='flex-1 flex items-center space-x-4'>
+					<FilterButton
+						label='Gender'
+						options={["Male", "Female", "Other"]}
+						selectedOptions={selectedFilters.gender}
+						handleFilterChange={(value) => handleFilterChange("gender", value)}
+					/>
+					<FilterButton
+						label='Availability'
+						options={["true", "false"]} // Assuming availability options are true or false
+						selectedOptions={selectedFilters.availability}
+						handleFilterChange={(value) =>
+							handleFilterChange("availability", value)
+						}
+					/>
 				</div>
 			</div>
 
